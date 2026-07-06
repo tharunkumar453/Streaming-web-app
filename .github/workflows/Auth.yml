@@ -13,16 +13,7 @@
       steps:
         - name: Checkout repository
           uses: actions/checkout@v4
-        - name: Show files
-          run: |
-            echo "Current directory:"
-            pwd
-
-            echo "Files in workspace:"
-            ls -la
-            echo "Files in GitOps repo:"
-            ls -R k8s-files
-
+       
         
         - name: Log in to DockerHub
           uses: docker/login-action@v3
@@ -44,6 +35,16 @@
             repository: ${{ secrets.GITOPS_REPO }}
             token: ${{ secrets.GITOPS_TOKEN }}
             path: k8s-files
+        - name: Show files
+          run: |
+              echo "Current directory:"
+              pwd
+
+              echo "Files in workspace:"
+              ls -la
+
+              echo "Files in GitOps repo:"
+              ls -R k8s-files
 
             
         - name: Update deployment.yaml
