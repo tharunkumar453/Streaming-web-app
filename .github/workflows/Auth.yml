@@ -34,7 +34,7 @@
           with:
             repository: ${{ secrets.GITOPS_REPO }}
             token: ${{ secrets.GITOPS_TOKEN }}
-            path: k8s-files
+            path: app
         - name: Show files
           run: |
               echo "Current directory:"
@@ -44,16 +44,16 @@
               ls -la
 
               echo "Files in GitOps repo:"
-              ls -R k8s-files
+              ls -R app/k8s-files
 
             
         - name: Update deployment.yaml
           run: |
             sed -i "s|image:.*|image: ${{ secrets.DOCKER_USERNAME }}/my_project_auth:${{ github.sha }}|" \
-            k8s-files/my_project_auth.yml
+            app/k8s-files/my_project_auth.yml
         - name: Commit and Push
           run: |
-            cd k8s-files
+            cd app/k8s-files
 
             git config user.name "github-actions"
             git config user.email "github-actions@github.com"
