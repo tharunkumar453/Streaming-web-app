@@ -108,9 +108,14 @@ WSGI_APPLICATION = "myproject_server.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR/"db.sqlite3",                      
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "demo",
+        "USER": "Tharunkumar",
+        "PASSWORD": "Kmaj29230@",
+        "HOST": "127.0.0.1",   # e.g. proxysql, localhost, or the VM/IP
+        "PORT": "6033",
+      
     }
 }
 
