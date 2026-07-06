@@ -107,17 +107,26 @@ WSGI_APPLICATION = "myproject_server.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+
+DATABASES_NAME= os.getenv("DATABASES_NAME")
+DATABASES_USER= os.getenv("DATABASES_USER")
+DATABASES_PASSWORD= os.getenv("DATABASES_PASSWORD")
+DATABASES_HOST= os.getenv("DATABASES_HOST")
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "demo",
-        "USER": "Tharunkumar",
-        "PASSWORD": "Kmaj29230@",
-        "HOST": "127.0.0.1",   # e.g. proxysql, localhost, or the VM/IP
-        "PORT": "6033",
-      
+        "NAME": DATABASES_NAME,
+        "USER": DATABASES_USER,
+        "PASSWORD": DATABASES_PASSWORD,
+        "HOST": DATABASES_HOST,
+        "PORT": "6033",              # ProxySQL MySQL port
+        "OPTIONS": {
+            "charset": "utf8mb4",
+        },
     }
 }
+
 
 
 
