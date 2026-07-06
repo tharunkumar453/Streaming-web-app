@@ -10,7 +10,8 @@ dependencies = [
     "python-dotenv",
     "django-cors-headers",
     "djangorestframework-simplejwt",
-    "razorpay"
+    "razorpay",
+    "mysqlclient"
   
 
 

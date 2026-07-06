@@ -12,7 +12,8 @@ dependencies = [
     "djangorestframework-simplejwt",
     "boto3",
     "cryptography",
-    "azure-storage-blob"
+    "azure-storage-blob",
+    "mysqlclient"
 
 
 

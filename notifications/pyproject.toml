@@ -14,6 +14,7 @@ dependencies = [
     "cryptography",
     "azure-storage-blob",
     "django-push-notifications>=3.3.0",
+    "mysqlclient"
 
 
 
