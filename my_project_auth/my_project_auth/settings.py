@@ -103,6 +103,7 @@ DATABASES_HOST= os.getenv("DATABASES_HOST")
 
 DATABASES = {
     "default": {
+        
         "ENGINE": "django.db.backends.mysql",
         "NAME": DATABASES_NAME,
         "USER": DATABASES_USER,

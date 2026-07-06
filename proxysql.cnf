@@ -1,0 +1,33 @@
+datadir="/var/lib/proxysql"
+
+admin_variables=
+{
+    admin_credentials="Tharunkumar:Kmaj29230@"
+    mysql_ifaces="0.0.0.0:6032"
+}
+
+mysql_variables=
+{
+    interfaces="0.0.0.0:6033"
+    monitor_username="Tharunkumar"
+    monitor_password="Kmaj29230@"
+}
+
+mysql_servers =
+(
+    {
+        address="streamingdb.mysql.database.azure.com"
+        port=3306
+        hostgroup=10
+        use_ssl=1
+    }
+)
+
+mysql_users =
+(
+    {
+        username="Tharunkumar"
+        password="Kmaj29230@"
+        default_hostgroup=10
+    }
+)
