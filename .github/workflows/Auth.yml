@@ -13,6 +13,15 @@
       steps:
         - name: Checkout repository
           uses: actions/checkout@v4
+        - name: Show files
+          run: |
+            echo "Current directory:"
+            pwd
+
+            echo "Files in workspace:"
+            ls -la
+            echo "Files in GitOps repo:"
+            ls -R k8s-files
 
         
         - name: Log in to DockerHub
