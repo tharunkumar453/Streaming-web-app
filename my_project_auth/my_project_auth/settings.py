@@ -31,9 +31,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = True
 
 
-
-
-# Application definition
+# Application definit
 
 INSTALLED_APPS = [
     "corsheaders",

@@ -144,5 +144,5 @@ cloudfront_public_key.pem
 deocker-compose.yml
 firebase-credintials.json
 notifications/notifications/firebase-credintials.json
-
+k8s-files
 .vscode
