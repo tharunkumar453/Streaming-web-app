@@ -1,10 +1,9 @@
 FROM python:3.12-slim
 
-# Install system dependencies
-
 # Install uv
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /usr/local/bin/
 
+# Environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     UV_LINK_MODE=copy \
@@ -12,12 +11,21 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-# Copy dependency files first
-COPY ./pyproject.toml ./
+# Install system dependencies required for mysqlclient
+RUN apt-get update && apt-get install -y \
+    gcc \
+    build-essential \
+    pkg-config \
+    libmariadb-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy dependency files first (for Docker layer caching)
+COPY pyproject.toml ./
+
+RUN uv sync --no-dev --no-install-project
 # COPY uv.lock ./   # Uncomment if you have one
 
-# Install dependencies
-RUN uv sync --no-dev 
+
 
 # Copy project
 COPY . .
