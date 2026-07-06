@@ -1,0 +1,33 @@
+name : Reels az Function CI
+on:
+  push:
+    branches: [ "dev" ]
+    paths:
+      - 'CeleryConsumerforReels/**'
+      - '.github/workflows/event_reels.yml'
+      
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-reels-az-function-CI:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name : log in to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+
+      - name: Deploy to az Functions
+        uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ secrets.AZURE_FUNCTION_APP_NAME_REELS }}
+          package: ./blob_event_reels
+  

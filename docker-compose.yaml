@@ -1,0 +1,71 @@
+version: "3.9"
+
+services:
+  web-auth:
+    build:
+      context: .
+      dockerfile: my_project_auth/Dockerfile
+    container_name: django-auth
+    command: "uv run python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    env_file:
+      - my_project_auth/.env
+    
+  web-auth-celery-worker:
+    build:
+      context: .
+      dockerfile: my_project_auth/Dockerfile
+    container_name: django-auth-celery-worker
+    command: "uv run celery -A my_project_auth worker -Q video_processing_queue --loglevel=info"
+    env_file:
+      - my_project_auth/.env
+   
+
+  myproject_server-django:
+    build:
+      context: .
+      dockerfile: myproject_server/Dockerfile
+    container_name: myproject_server-django
+    command: "uv run python manage.py runserver 0.0.0.0:8000"
+    env_file:
+      - myproject_server/.env
+
+  myproject_server-celery-worker:
+    build:
+      context: .
+      dockerfile: myproject_server/Dockerfile
+    container_name: myproject_server-celery-worker
+    command: "uv run celery -A myproject_server worker -Q db_update_queue,premium_user_update_queue --loglevel=info"
+    
+    env_file:
+      - myproject_server/.env
+  
+  
+
+  notifications-django:
+    build:
+      context: .
+      dockerfile: notifications/Dockerfile
+    container_name: notifications-django
+    command: "uv run python manage.py runserver 0.0.0.0:8000"
+    env_file:
+      - notifications/.env
+
+  notifications-celery-worker:
+
+    build:
+      context: .
+      dockerfile: notifications/Dockerfile
+    container_name: notifications-celery-worker
+    command: "uv run celery -A notifications worker -Q push_notification_queue, email_notification_queue ,RegistrationQueue,subscription_queue --loglevel=info"
+    env_file:
+      - notifications/.env
+  payments-django:
+    build:
+      context: .
+      dockerfile: payments/Dockerfile
+    container_name: payments-django
+    command: "uv run python manage.py runserver 0.0.0.0:8000"
+    env_file:
+      - payments/.env
