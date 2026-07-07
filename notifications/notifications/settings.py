@@ -113,7 +113,7 @@ DATABASES = {
         "USER": DATABASES_USER,
         "PASSWORD": DATABASES_PASSWORD,
         "HOST": DATABASES_HOST,
-        "PORT": "6033",              # ProxySQL MySQL port
+        "PORT": "6033",              # ProxySQL 
         "OPTIONS": {
             "charset": "utf8mb4",
         },
