@@ -2,7 +2,6 @@ import subprocess
 import logging
 def Chunk_generator(file_path, output_folder):
      try:
-
           cmd = f'''
                ffmpeg -i "{file_path}" \
                -map 0:v -map 0:a \
