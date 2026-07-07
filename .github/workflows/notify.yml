@@ -5,7 +5,6 @@ on:
     paths:
       - 'notifications/**'
       - '.github/workflows/notify.yml'
-
 jobs:
   build-notificationCI:
     runs-on: ubuntu-latest
