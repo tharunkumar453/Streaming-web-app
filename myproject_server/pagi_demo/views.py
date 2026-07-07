@@ -40,7 +40,7 @@ class MovieDetailsView(RetrieveAPIView):
     
 class ReelsListView(ListAPIView):
     permission_classes = [AllowAny] 
-    queryset = Movies.objects.filter(is_reel=True).order_by("-uploaded_at")
+    queryset = Movies.objects.filter(reel=True).order_by("-uploaded_at")
     serializer_class = MovieListSerializer
     pagination_class = MovieCursorPagination
 
