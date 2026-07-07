@@ -13,7 +13,6 @@ dependencies = [
     "firebase-admin>=7.4.0",
     "cryptography",
     "azure-storage-blob",
-    "django-push-notifications>=3.3.0",
     "mysqlclient"
 
 
