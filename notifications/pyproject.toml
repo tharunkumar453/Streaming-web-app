@@ -14,9 +14,4 @@ dependencies = [
     "cryptography",
     "azure-storage-blob",
     "mysqlclient"
-
-
-
-
-
 ]

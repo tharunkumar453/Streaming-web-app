@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",  # Required if frontend/backend are separated
     "rest_framework",  # Assuming you are using Django REST Framework
-    "push_notifications",
     "push",
    
 ]
