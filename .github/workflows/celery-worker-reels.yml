@@ -3,7 +3,7 @@ on:
   push:
     branches: [ "dev" ]
     paths:
-      - 'CeleryConsumerforReels/**'
+      - 'CeleryConsumerforreel/**'
       - '.github/workflows/celery-worker-reels.yml'
 jobs:
   build-celery-worker-CI:
