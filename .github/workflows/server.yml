@@ -1,5 +1,4 @@
 name: SERVER CI
-
 on:
   push:
     branches: [ "dev" ]

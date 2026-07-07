@@ -5,6 +5,7 @@ on:
     paths:
       - 'CeleryConsumerforreel/**'
       - '.github/workflows/celery-worker-reels.yml'
+      
 jobs:
   build-celery-worker-CI:
     runs-on: ubuntu-latest

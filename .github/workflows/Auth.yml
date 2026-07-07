@@ -6,7 +6,6 @@
         - 'my_project_auth/**'
         - '.github/workflows/Auth.yml'
         
-        
   jobs:
     build-auth-CI:
       runs-on: ubuntu-latest

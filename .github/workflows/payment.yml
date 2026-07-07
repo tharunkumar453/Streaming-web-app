@@ -6,8 +6,7 @@ on:
       - dev
     paths:
       - 'payments/**'
-      - '.github/workflows/payments.yml'
-      
+      - '.github/workflows/payments.yml'    
 jobs:
   build-payment-CI:
     runs-on: ubuntu-latest
