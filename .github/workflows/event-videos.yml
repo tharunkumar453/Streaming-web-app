@@ -3,7 +3,7 @@ on:
   push:
     branches: [ "dev" ]
     paths:
-      - './blob_event_videos/**'
+      - 'blob_event_videos/**'
       - '.github/workflows/event-videos.yml'
 
 permissions:

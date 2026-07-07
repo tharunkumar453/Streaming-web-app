@@ -3,7 +3,7 @@ on:
   push:
     branches: [ "dev" ]
     paths:
-      - 'CeleryConsumerforReels/**'
+      - 'blob_event_reels/**'
       - '.github/workflows/event_reels.yml'
       
 permissions:
