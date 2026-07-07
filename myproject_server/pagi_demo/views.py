@@ -30,7 +30,7 @@ class MovieDetailsView(RetrieveAPIView):
         if movie is None:
             return Response({"error": "Movie not found"},status=404)
         serializer = MovieDetailsSerializer(movie)
-          print(serializer.data["files"][0]["url_for_preview"])
+        print(serializer.data["files"][0]["url_for_preview"])
         response = Response({
             "movie": serializer.data,
             "preview_url": f"{cdn_domain}/{serializer.data['files'][0]['url_for_preview']}",
