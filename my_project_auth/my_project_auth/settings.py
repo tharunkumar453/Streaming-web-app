@@ -80,22 +80,30 @@ WSGI_APPLICATION = "my_project_auth.wsgi.application"
 DATABASES_NAME= os.getenv("DATABASES_NAME")
 DATABASES_USER= os.getenv("DATABASES_USER")
 DATABASES_PASSWORD= os.getenv("DATABASES_PASSWORD")
-DATABASES_HOST= os.getenv("DATABASES_HOST")
-
+PRIMARY_DATABASES_HOST= os.getenv("PRIMARY_DATABASES_HOST")
+REPLICA1_DATABASES_HOST= os.getenv("REPLICA1_DATABASES_HOST")
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": DATABASES_NAME,
         "USER": DATABASES_USER,
         "PASSWORD": DATABASES_PASSWORD,
-        "HOST": DATABASES_HOST,
-        "PORT": "6033",
-        "OPTIONS": {
-            "connect_timeout": 30,
-            "init_command": "SET SESSION wait_timeout=28800",
-        }
-    }
+        "HOST": PRIMARY_DATABASES_HOST,
+        "PORT": "3306",
+        "CONN_MAX_AGE": 600,
+    },
+    "replica": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": DATABASES_NAME,
+        "USER": DATABASES_USER,
+        "PASSWORD": DATABASES_PASSWORD,
+        "HOST": REPLICA1_DATABASES_HOST,
+        "PORT": "3306",
+        "CONN_MAX_AGE": 600,
+    },  
+    
 }
+DATABASES_ROUTERS = ['my_project_auth.db_router.PrimaryReplicaRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators

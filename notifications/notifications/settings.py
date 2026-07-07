@@ -104,21 +104,30 @@ WSGI_APPLICATION = "notifications.wsgi.application"
 DATABASES_NAME= os.getenv("DATABASES_NAME")
 DATABASES_USER= os.getenv("DATABASES_USER")
 DATABASES_PASSWORD= os.getenv("DATABASES_PASSWORD")
-DATABASES_HOST= os.getenv("DATABASES_HOST")
-
+PRIMARY_DATABASES_HOST= os.getenv("PRIMARY_DATABASES_HOST")
+REPLICA1_DATABASES_HOST= os.getenv("REPLICA1_DATABASES_HOST")
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": DATABASES_NAME,
         "USER": DATABASES_USER,
         "PASSWORD": DATABASES_PASSWORD,
-        "HOST": DATABASES_HOST,
-        "PORT": "6033",              # ProxySQL 
-        "OPTIONS": {
-            "charset": "utf8mb4",
-        },
-    }
+        "HOST": PRIMARY_DATABASES_HOST,
+        "PORT": "3306",
+        "CONN_MAX_AGE": 600,
+    },
+    "replica": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": DATABASES_NAME,
+        "USER": DATABASES_USER,
+        "PASSWORD": DATABASES_PASSWORD,
+        "HOST": REPLICA1_DATABASES_HOST,
+        "PORT": "3306",
+        "CONN_MAX_AGE": 600,
+    },  
+    
 }
+DATABASES_ROUTERS = ['notifications.db_router.PrimaryReplicaRouter']
 
 
 # Password validation

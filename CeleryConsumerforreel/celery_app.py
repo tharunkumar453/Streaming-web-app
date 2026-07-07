@@ -5,8 +5,6 @@ load_dotenv()
 
 REDIS_URL=os.getenv("REDIS_URL")
 
-
-
 celery_app_instance = Celery(
     "video_worker",
     broker=REDIS_URL
