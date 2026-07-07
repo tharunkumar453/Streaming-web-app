@@ -29,8 +29,6 @@ INSTALLED_APPS = [
 ]
 AUTH_USER_MODEL = "auth_service.CustomUserModel"
 
-
-
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
