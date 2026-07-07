@@ -5,8 +5,9 @@ on:
     paths:
       - 'notifications/**'
       - '.github/workflows/notify.yml'
+
 jobs:
-  build-notify-CI:
+  build-notificationgit -CI:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
