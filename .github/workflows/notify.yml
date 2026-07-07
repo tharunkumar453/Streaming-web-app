@@ -7,7 +7,7 @@ on:
       - '.github/workflows/notify.yml'
 
 jobs:
-  build-notificationgit -CI:
+  build-notificationCI:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
