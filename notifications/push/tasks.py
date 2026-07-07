@@ -72,7 +72,7 @@ def email_notification_for_video_upload(
 ):
 
 
-    html_content = Path("/workspaces/Streaming-web-app/notifications/push/emails/new_video.html").read_text()
+    html_content = Path("/notifications/push/emails/new_video.html").read_text()
 
     html_content = (
         html_content
@@ -135,7 +135,7 @@ def email_notification_for_video_upload(
 def Registrationtask(email):
     try:
         # Render the email template with context
-        html_content = Path("/workspaces/Streaming-web-app/notifications/push/emails/welcome.html").read_text()
+        html_content = Path("/notifications/push/emails/welcome.html").read_text()
         html_content = (
         html_content
         .replace("{{EMAIL}}", email)
@@ -162,7 +162,7 @@ def Registrationtask(email):
 def subscription_task(user_id, user_email, plan_name, start_date, end_date):
     try:
         # Render the email template with context
-        html_content = Path("/workspaces/Streaming-web-app/notifications/push/emails/subscription.html").read_text()
+        html_content = Path("/notifications/push/emails/subscription.html").read_text()
         html_content = (
         html_content
         .replace("{{EMAIL}}", user_email)
