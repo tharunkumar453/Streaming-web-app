@@ -30,3 +30,38 @@ jobs:
           file: ./payments/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/payments:${{ github.sha }}
+
+
+      - name: Checkout GitOps Repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ secrets.GITOPS_REPO }}
+          token: ${{ secrets.GITOPS_TOKEN }}
+          path: app
+
+      - name: Show files
+        run: |
+            echo "Current directory:"
+            pwd
+
+            echo "Files in workspace:"
+            ls -la
+
+            echo "Files in GitOps repo:"
+            ls -R app/k8s-files
+
+            
+      - name: Update deployment.yaml
+        run: |
+          sed -i "s|image:.*|image: ${{ secrets.DOCKER_USERNAME }}/payments:${{ github.sha }}|" \
+          app/k8s-files/pay.yml
+      - name: Commit and Push
+        run: |
+          cd app/k8s-files
+
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add -f .
+          git commit -m "Update image tag" || echo "No changes"
+          git push 
