@@ -21,7 +21,7 @@ load_dotenv()
 KEY_PAIR_ID = os.getenv("KEY_PAIR_ID")
 CDN_DOMAIN = os.getenv("CDN_DOMAIN")
 
-private_key = serialization.load_pem_private_key(
+private_key_pem = serialization.load_pem_private_key(
     os.environ["CLOUDFRONT_PRIVATE_KEY"].encode(),
     password=None
 )
