@@ -135,7 +135,7 @@ class LoginView(APIView):
                 response.set_cookie(
                     key=key,
                     value=value,
-                    secure=True,
+                    secure=False,
                     httponly=True,
                     samesite="None",
                     path="/"
