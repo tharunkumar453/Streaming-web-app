@@ -1,5 +1,4 @@
 name: payments CI
-
 on:
   push:
     branches:
