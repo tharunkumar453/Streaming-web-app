@@ -91,8 +91,9 @@ DATABASES = {
         "HOST": DATABASES_HOST,
         "PORT": "6033",
         "OPTIONS": {
-            "charset": "utf8mb4",
-        },
+            "connect_timeout": 30,
+            "init_command": "SET SESSION wait_timeout=28800",
+        }
     }
 }
 
