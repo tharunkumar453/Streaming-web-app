@@ -86,19 +86,17 @@ DATABASES_HOST= os.getenv("DATABASES_HOST")
 
 DATABASES = {
     "default": {
-        
         "ENGINE": "django.db.backends.mysql",
         "NAME": DATABASES_NAME,
         "USER": DATABASES_USER,
         "PASSWORD": DATABASES_PASSWORD,
         "HOST": DATABASES_HOST,
-        "PORT": "6033",              # ProxySQL MySQL port
+        "PORT": "6033",
         "OPTIONS": {
             "charset": "utf8mb4",
         },
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators

@@ -21,6 +21,9 @@ load_dotenv()
 KEY_PAIR_ID = os.getenv("KEY_PAIR_ID")
 CDN_DOMAIN = os.getenv("CDN_DOMAIN")
 
+private_key_pem = os.environ["CLOUDFRONT_PRIVATE_KEY"].encode()
+private_key = serialization.load_pem_private_key(private_key_pem, password=None)
+
 
 def rsa_signer(message):
     return private_key.sign(
@@ -28,9 +31,6 @@ def rsa_signer(message):
         padding.PKCS1v15(),
         hashes.SHA1())
 
-with open("/workspaces/Streaming-web-app/my_project_auth/cloudfront_private_key.pem", "rb") as f:
-    private_key = serialization.load_pem_private_key(f.read(),password =None)
-    
 cloudfront_signer = CloudFrontSigner(KEY_PAIR_ID,rsa_signer)
 
 
@@ -130,14 +130,15 @@ class LoginView(APIView):
             cookies = generate_cloudfront_cookies(f"{CDN_DOMAIN}/*")
 
             for key, value in cookies.items():
+                print(f"Setting cookie: {key}={value}")
+                print()
                 response.set_cookie(
                     key=key,
                     value=value,
                     secure=True,
                     httponly=True,
                     samesite="None",
-                    path="/",
-                    domain=".yourdomain.com"
+                    path="/"
                 )
             return response
 
