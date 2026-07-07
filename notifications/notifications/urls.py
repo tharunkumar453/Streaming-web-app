@@ -20,5 +20,5 @@ from django.urls import path,include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("push.urls")),  # Include URLs from the push app
+    path("notifications/", include("push.urls")),  # Include URLs from the push app
 ]

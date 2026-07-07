@@ -29,6 +29,10 @@ jobs:
           file: ./CeleryConsumerforreel/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/celeryconsumerreel:${{ github.sha }}
+  build-celery-worker-CD:
+    runs-on: ubuntu-latest
+    needs: build-celery-worker-CI
+    steps:
 
       - name: Checkout GitOps Repository
         uses: actions/checkout@v4

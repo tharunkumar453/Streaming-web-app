@@ -1,4 +1,4 @@
-  name: Auth CI
+  name: authenication-workflow
   on:
     push:
       branches: [ "dev" ]
@@ -26,7 +26,10 @@
             file: ./my_project_auth/Dockerfile
             push: true
             tags: ${{ secrets.DOCKER_USERNAME }}/my_project_auth:${{ github.sha }}
-
+    build-auth-CD:
+      runs-on: ubuntu-latest
+      needs: build-auth-CI
+      steps:
         - name: Checkout GitOps Repository
           uses: actions/checkout@v4
           with:

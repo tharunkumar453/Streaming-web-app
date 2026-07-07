@@ -26,6 +26,10 @@ jobs:
           file: ./CeleryConsumer/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/celeryconsumervideo:${{ github.sha }}
+  build-celery-worker-video-CD:
+    runs-on: ubuntu-latest
+    needs: build-celery-worker-video-CI
+    steps:
 
       - name: Checkout GitOps Repository
         uses: actions/checkout@v4
@@ -58,4 +62,4 @@ jobs:
 
           git add -f .
           git commit -m "Update image tag" || echo "No changes"
-          git push 
+          git push-f
