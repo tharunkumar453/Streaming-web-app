@@ -21,11 +21,10 @@ load_dotenv()
 KEY_PAIR_ID = os.getenv("KEY_PAIR_ID")
 CDN_DOMAIN = os.getenv("CDN_DOMAIN")
 
-with open("/workspaces/Streaming-web-app/my_project_auth/cloudfront_private_key.pem", "rb") as key_file:
-    private_key = serialization.load_pem_private_key(
-        key_file.read(),
-        password=None,
-    )
+private_key= serialization.load_pem_private_key(
+    os.getenv("PRIVATE_KEY").encode(),
+    password=None,
+)
 def rsa_signer(message):
     return private_key.sign(
         message,
