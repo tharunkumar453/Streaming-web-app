@@ -62,4 +62,4 @@ jobs:
 
           git add -f .
           git commit -m "Update image tag" || echo "No changes"
-          git push-f
+          git push
