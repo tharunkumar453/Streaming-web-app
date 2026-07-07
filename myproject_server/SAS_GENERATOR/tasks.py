@@ -26,7 +26,7 @@ def Update_Movie_URL(movie_id, url_,url_for_preview=None):
                 queue="email_notify_queue"
                 )
             except  Exception as e:
-                logging.error(f"Error sending task to email_notify_queue for video_id: {movie_id} --->Error: {str(e)}")
+                logging.error(f"Error sending  to email_notify_queue for video_id: {movie_id} --->Error: {str(e)}")
         else:
             logging.error(f"Movie with ID {movie_id} does not exist.")
             return  

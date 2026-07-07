@@ -23,7 +23,7 @@ def OriginalVideosContainer(azeventgrid: func.EventGridEvent):
     try:
         data = azeventgrid.get_json()
 
-        logging.info(f"Event ID: {azeventgrid.id}")
+        logging.info(f"Eve nt ID: {azeventgrid.id}")
         logging.info(f"Event Data: {data}")
 
         blob_url = data.get("url")

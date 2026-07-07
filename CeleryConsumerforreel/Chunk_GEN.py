@@ -45,6 +45,6 @@ def Chunk_generator(file_path,output_folder):
      except Exception as e:
           logging.error(f"Error during HLS generation: {e}")
           return False
-     logging.info(f"HLS generated successfully in {output_folder}."  )
+     logging.info(f"HLS generated succes in {output_folder}."  )
      return True
      

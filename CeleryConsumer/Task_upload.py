@@ -3,7 +3,7 @@ from celery_app import celery_app_instance
 import os
 import logging
 from dotenv import load_dotenv
-load_dotenv()  # Load environment variables from .env fi
+load_dotenv()  
 
 AZCOPY_AUTO_LOGIN_TYPE = os.getenv("AZCOPY_AUTO_LOGIN_TYPE")
 AZCOPY_TENANT_ID= os.getenv("AZCOPY_TENANT_ID")

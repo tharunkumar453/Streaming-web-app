@@ -10,4 +10,4 @@ class EmailNotificationTask:
 
             )
         except Exception as e:
-            print(f"Error sending email notification: {e}")
+            print(f"Error sending email to  notification: {e}")

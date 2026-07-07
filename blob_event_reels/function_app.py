@@ -43,7 +43,7 @@ def reels(azeventgrid: func.EventGridEvent):
             logging.info(f"Blob URL pushed to Redis: {blob_url}")
 
         else:
-            logging.warning("No blob URL found in event")
+            logging.warning("No blob URL found in events")
 
     except Exception as e:
         logging.error(f"Error: {str(e)}")
