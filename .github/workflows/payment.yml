@@ -26,6 +26,7 @@ jobs:
           file: ./payments/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/payments:${{ github.sha }}
+          
   build-payment-CD:
     runs-on: ubuntu-latest
     needs: build-payment-CI

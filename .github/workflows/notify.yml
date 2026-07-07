@@ -24,6 +24,7 @@ jobs:
           file: ./notifications/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/notifications:${{ github.sha }}
+          
   build-notification-CD:
     runs-on: ubuntu-latest
     needs: build-notificationCI

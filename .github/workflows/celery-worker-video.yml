@@ -47,7 +47,7 @@ jobs:
             echo "Files in GitOps repo:"
             ls -R app/k8s-files
 
-            
+           
       - name: Update deployment.yaml
         run: |
           sed -i "s|image:.*|image: ${{ secrets.DOCKER_USERNAME }}/celeryconsumervideo:${{ github.sha }}|" \
