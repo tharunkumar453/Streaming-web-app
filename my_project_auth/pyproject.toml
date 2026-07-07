@@ -11,8 +11,6 @@ dependencies = [
     "django-cors-headers",
     "djangorestframework-simplejwt",
     "google-auth",
-    "mysqlclient"
-
-
-
+    "mysqlclient",
+    "botocore>=1.43.41",
 ]
