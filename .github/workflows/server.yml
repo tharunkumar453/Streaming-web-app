@@ -37,7 +37,6 @@ jobs:
           repository: ${{ secrets.GITOPS_REPO }}
           token: ${{ secrets.GITOPS_TOKEN }}
           path: app
-
       - name: Show files
         run: |
             echo "Current directory:"
