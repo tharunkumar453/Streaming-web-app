@@ -39,7 +39,7 @@ ACCOUNT_NAME = os.getenv("ACCOUNT_NAME")
 ACCOUNT_KEY = os.getenv("ACCOUNT_KEY")
 CONTAINER_NAME_VIDEOS = os.getenv("CONTAINER_NAME_VIDEOS")
 CONTAINER_NAME_REELS = os.getenv("CONTAINER_NAME_REELS")
-CONTAINER_NAME_THUMBNAILS = os.getenv("CONTAINER_NAME_THUMBNAILS")
+
 
 # Application definition
 
@@ -75,6 +75,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "https://esparx2k26.me",
 ]
+CORS_ALLOW_CREDENTIALS = True
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
