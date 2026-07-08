@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()  # Load environment variables from .env file
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-ALLOWED_HOSTS = ["*"]
+
 
 
 SECRET_KEY = os.getenv("SECRET_KEY")
@@ -39,7 +39,15 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-CORS_ALLOW_ALL_ORIGINS=True
+ALLOWED_HOSTS = ["*"]
+CORS_ALLOW_ALL_ORIGINS = False
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+CORS_ALLOW_CREDENTIALS = True
 
 REST_FRAMEWORK = {
 
