@@ -160,39 +160,45 @@ class LogoutView(APIView):
             return Response({"detail": "Invalid or expired token."}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class RefreshjwtView(APIView):
-    permission_classes = [IsAuthenticated]
+from rest_framework.permissions import AllowAny
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework_simplejwt.tokens import RefreshToken
+
+
+class RefreshJwtView(APIView):
+    permission_classes = [AllowAny]
     def post(self, request):
         refresh_token = request.data.get("refresh")
         if not refresh_token:
-            return Response({"detail": "Refresh token is required."}, status=status.HTTP_400_BAD_REQUEST)
-
+            return Response(
+                {"detail": "Refresh token is required."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         try:
-            token = RefreshToken(refresh_token)
-            new_access_token = str(token.access_token)
-
-            # Create response
-            response = Response({
-                "access": new_access_token,
+            refresh = RefreshToken(refresh_token)
+            access = refresh.access_token
+            response = Response(
+                {
+                    "access": str(access),
+                    "refresh": str(refresh),  # Optional: useful if you later enable rotation
                 },
                 status=status.HTTP_200_OK,
             )
-
-            # Generate CloudFront signed cookies
             cookies = generate_cloudfront_cookies(f"{CDN_DOMAIN}/*")
-
             for key, value in cookies.items():
-                print(f"Setting cookie: {key}={value}")
-                print()
                 response.set_cookie(
                     key=key,
                     value=value,
-                    secure=False,
+                    secure=False,          # Change to True in production (HTTPS)
                     httponly=True,
-                    samesite="None",
-                    path="/"
+                    samesite="None",       # Use "Lax" if developing over HTTP
+                    path="/",
                 )
             return response
-
-        except Exception as e:
-            return Response({"detail": "Invalid or expired token."}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            return Response(
+                {"detail": "Invalid or expired refresh token."},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
