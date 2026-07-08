@@ -25,6 +25,7 @@ class Movies(models.Model):
         blank=True
     )
     reel = models.BooleanField(default=False)
+    blob_url_thumbnail = models.URLField(max_length=2000, null=True, blank=True)
 
 
    
@@ -48,6 +49,7 @@ class MovieUrls(models.Model):
 
 
     blob_url = models.URLField(max_length=2000)
+  
 
     def __str__(self):
         return f"File for {self.Movie.title}"

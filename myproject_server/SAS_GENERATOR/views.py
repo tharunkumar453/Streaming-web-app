@@ -6,8 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from myproject_server.settings import ACCOUNT_NAME, ACCOUNT_KEY, CONTAINER_NAME_VIDEOS, CONTAINER_NAME_REELS
 from django.http import JsonResponse
 import uuid 
-
-
+CONTAINER_NAME_THUMBNAILS = "processedvideos"
 
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -15,9 +14,12 @@ from .models import Movies,MovieUrls
 @csrf_exempt
 
 
-def Generate_SAS_for_Movie(movie_id,CONTAINER_NAME):
+def Generate_SAS_for_Movie(movie_id,CONTAINER_NAME,is_thumbnail=False):
 
-        filename = f"{movie_id}.mp4"# make file name unique
+        if is_thumbnail:
+            filename = f"{movie_id}_thumbnail.jpg"
+        else:
+            filename = f"{movie_id}.mp4"# make file name unique
 
         #generate sas token for the blob
         sas_token = generate_blob_sas(
@@ -61,12 +63,16 @@ class Upload_Movie(APIView):
                 description=movie_description,
                 cast=movie_cast,
                 zoner=movie_zoner,
-                reel=False
+                reel=False,
+                movie_url_thumbnail=None
             )
             print("hi")
 
             blob_url = Generate_SAS_for_Movie(movie.Movie_id,CONTAINER_NAME_VIDEOS)
-            return JsonResponse({"blob_url": blob_url}, status=200)
+            blob_url_thumbnail = Generate_SAS_for_Movie(movie.Movie_id,CONTAINER_NAME_THUMBNAILS,is_thumbnail=True)
+            movie.blob_url_thumbnail = blob_url_thumbnail
+            movie.save()
+            return JsonResponse({"blob_url": blob_url,"blob_url_thumbnail": blob_url_thumbnail}, status=200)
 
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=400)  
@@ -81,8 +87,8 @@ class upload_Reel(APIView):
             reel = Movies.objects.create(
                 uploader_id=request.user.id,
                 title=reel_title,
-                reel=True
-              
+                reel=True,
+                movie_url_thumbnail=None
             )
             print("hi")
 

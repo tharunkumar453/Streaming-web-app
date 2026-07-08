@@ -39,6 +39,7 @@ ACCOUNT_NAME = os.getenv("ACCOUNT_NAME")
 ACCOUNT_KEY = os.getenv("ACCOUNT_KEY")
 CONTAINER_NAME_VIDEOS = os.getenv("CONTAINER_NAME_VIDEOS")
 CONTAINER_NAME_REELS = os.getenv("CONTAINER_NAME_REELS")
+CONTAINER_NAME_THUMBNAILS = os.getenv("CONTAINER_NAME_THUMBNAILS")
 
 # Application definition
 
@@ -66,7 +67,14 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True # If you want to allow all origins
+
+CORS_ALLOW_ALL_ORIGINS = False
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://esparx2k26.me",
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -80,8 +88,6 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     "SIGNING_KEY": os.getenv("SIGNING_KEY"),
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
 
 
