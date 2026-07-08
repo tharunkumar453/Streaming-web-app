@@ -63,8 +63,7 @@ class Upload_Movie(APIView):
                 description=movie_description,
                 cast=movie_cast,
                 zoner=movie_zoner,
-                reel=False,
-                movie_url_thumbnail=None
+                reel=False
             )
             print("hi")
 
