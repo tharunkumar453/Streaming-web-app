@@ -186,8 +186,8 @@ class RefreshJwtView(APIView):
                 response.set_cookie(
                     key=key,
                     value=value,
-                    secure=False,          # Change to True in production (HTTPS)
-                    httponly=True,
+                    secure=True,       
+                    httponly=False,
                     samesite="None",       # Use "Lax" if developing over HTTP
                     path="/",
                 )
