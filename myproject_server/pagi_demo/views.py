@@ -11,7 +11,7 @@ load_dotenv()  # Load environment variables from .env file
 
 
 from SAS_GENERATOR.models import Movies, MovieUrls
-from .serializer import MovieListSerializer,MovieDetailsSerializer 
+from .serializer import MovieListSerializer,MovieDetailsSerializer ,ReelviewSerializer
 from .pagination import MovieCursorPagination
 from rest_framework.response import Response
 
@@ -33,7 +33,6 @@ class MovieDetailsView(RetrieveAPIView):
         print(serializer.data["files"][0]["url_for_preview"])
         response = Response({
             "movie": serializer.data,
-            "preview_url": f"{cdn_domain}/{serializer.data['files'][0]['url_for_preview']}",
             "blob_url": f"{cdn_domain}/{serializer.data['files'][0]['blob_url']}"
         })
       
@@ -41,7 +40,7 @@ class MovieDetailsView(RetrieveAPIView):
 class ReelsListView(ListAPIView):
     permission_classes = [AllowAny] 
     queryset = Movies.objects.filter(reel=True).order_by("-uploaded_at")
-    serializer_class = MovieListSerializer
+    serializer_class = ReelviewSerializer
     pagination_class = MovieCursorPagination
 
     

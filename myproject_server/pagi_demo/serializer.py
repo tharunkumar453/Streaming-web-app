@@ -11,7 +11,8 @@ class MovieListSerializer(serializers.ModelSerializer):
         fields = [
             "Movie_id",
             "title",
-            "uploaded_at"
+            "uploaded_at",
+            "blob_url_thumbnail"
         ]
 
 class VideoFileSerializer(serializers.ModelSerializer):
@@ -43,3 +44,16 @@ class MovieDetailsSerializer(serializers.ModelSerializer):
             "uploaded_at",
             "files"
         ]
+
+class ReelviewSerializer(serializers.ModelSerializer):
+
+    fields=VideoFileSerializer(many=True,read_only=True)
+    class Meta:
+        model=Movies
+        fields=[
+            "Movie_id",
+            "title",
+            "uploaded_at",
+            "fields"
+        ]
+
