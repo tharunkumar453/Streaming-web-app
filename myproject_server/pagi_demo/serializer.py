@@ -47,13 +47,13 @@ class MovieDetailsSerializer(serializers.ModelSerializer):
 
 class ReelviewSerializer(serializers.ModelSerializer):
 
-    fields=VideoFileSerializer(many=True,read_only=True)
+    files=VideoFileSerializer(many=True,read_only=True)
     class Meta:
         model=Movies
         fields=[
             "Movie_id",
             "title",
             "uploaded_at",
-            "fields"
+            "files"
         ]
 

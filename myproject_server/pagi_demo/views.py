@@ -35,6 +35,7 @@ class MovieDetailsView(RetrieveAPIView):
             "movie": serializer.data,
             "blob_url": f"{cdn_domain}/{serializer.data['files'][0]['blob_url']}"
         })
+        return response
       
     
 class ReelsListView(ListAPIView):
