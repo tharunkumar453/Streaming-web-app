@@ -69,7 +69,7 @@ class Upload_Movie(APIView):
 
             blob_url = Generate_SAS_for_Movie(movie.Movie_id,CONTAINER_NAME_VIDEOS)
             blob_url_thumbnail = Generate_SAS_for_Movie(movie.Movie_id,CONTAINER_NAME_THUMBNAILS,is_thumbnail=True)
-            movie.blob_url_thumbnail = blob_url_thumbnail
+            movie.blob_url_thumbnail = f"{movie.Movie_id}_thumbnail.jpg"
             movie.save()
             return JsonResponse({"blob_url": blob_url,"blob_url_thumbnail": blob_url_thumbnail}, status=200)
 
@@ -86,8 +86,7 @@ class upload_Reel(APIView):
             reel = Movies.objects.create(
                 uploader_id=request.user.id,
                 title=reel_title,
-                reel=True,
-                movie_url_thumbnail=None
+                reel=True
             )
             print("hi")
 
