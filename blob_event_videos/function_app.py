@@ -4,13 +4,7 @@ import azure.functions as func
 from celery import Celery
 REDIS_URL="redis://:0RMNBgSGiCe5HVRzIHmv9eP52W-KqVdjrAZCABZ8ruA=@azredis.malaysiawest.redis.azure.net:10000/0"
 
-
-
-
-celery_client = Celery(
-    "producer",
-    broker=REDIS_URL
-)
+celery_client = Celery("producer",broker=REDIS_URL)
 
 app = func.FunctionApp()
 
@@ -29,9 +23,6 @@ def OriginalVideosContainer(azeventgrid: func.EventGridEvent):
         blob_url = data.get("url")
 
         if blob_url:
-
-        
-
             celery_client.send_task(
                 "video_processing_task",
                 args=[blob_url, blob_url.split("/")[-1].split(".")[0]],
