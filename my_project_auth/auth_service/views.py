@@ -44,7 +44,7 @@ def cf_b64(data: bytes):
         .replace("/", "~")
     )
 def generate_cloudfront_cookies(resource):
-    expire = datetime.now(timezone.utc) + timedelta(hours=3)
+    expire = datetime.now(timezone.utc) + timedelta(hours=4)
     policy = cloudfront_signer.build_policy(resource,expire).encode()
     signature = rsa_signer(policy)
     return {
@@ -160,18 +160,39 @@ class LogoutView(APIView):
             return Response({"detail": "Invalid or expired token."}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class RefreshCloudFrontCookieView(APIView):
+class RefreshjwtView(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request):
-        cookies = generate_cloudfront_cookies(f"{CDN_DOMAIN}/*")
-        response = Response({ "message": "CloudFront cookies refreshed"}, status=status.HTTP_200_OK )  
-        for key, value in cookies.items():
-            response.set_cookie(
-                key,
-                value,
-                secure=True,
-                httponly=True,
-                samesite="None",
-                path="/"
+        refresh_token = request.data.get("refresh")
+        if not refresh_token:
+            return Response({"detail": "Refresh token is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            token = RefreshToken(refresh_token)
+            new_access_token = str(token.access_token)
+
+            # Create response
+            response = Response({
+                "access": new_access_token,
+                },
+                status=status.HTTP_200_OK,
             )
-        return response
+
+            # Generate CloudFront signed cookies
+            cookies = generate_cloudfront_cookies(f"{CDN_DOMAIN}/*")
+
+            for key, value in cookies.items():
+                print(f"Setting cookie: {key}={value}")
+                print()
+                response.set_cookie(
+                    key=key,
+                    value=value,
+                    secure=False,
+                    httponly=True,
+                    samesite="None",
+                    path="/"
+                )
+            return response
+
+        except Exception as e:
+            return Response({"detail": "Invalid or expired token."}, status=status.HTTP_400_BAD_REQUEST)
