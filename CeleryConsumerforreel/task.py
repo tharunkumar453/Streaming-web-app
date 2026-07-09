@@ -37,7 +37,6 @@ def process_Reel(self, blob_url, movie_id):
         return
     else:
         logging.info(f"file path created for video_id: {movie_id}")
-   c
     
     chunk_gen_out = Chunk_generator(file_path, output_folder)
 
