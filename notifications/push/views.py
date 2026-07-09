@@ -4,6 +4,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .models import Following_Follower
 from .serializers import FollowingSerializer
+from rest_framework import status
+import logging
 
 
 from .models import DeviceNotification
@@ -42,10 +44,10 @@ class Following_Follower_view(APIView):
                 follower_email=request.user.email
 
             )
-            return Response("you are now following this channel")
+            return Response({"message":"followed successfully"},status=201)
         except Exception as e :
             logging.error(f"{e}")
-
+            return Response({"error":"failed to follow channel"},status=500)
 
     
 
