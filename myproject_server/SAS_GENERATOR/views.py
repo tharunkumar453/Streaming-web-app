@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from myproject_server.settings import ACCOUNT_NAME, ACCOUNT_KEY, CONTAINER_NAME_VIDEOS, CONTAINER_NAME_REELS
 from django.http import JsonResponse
 import uuid 
-CONTAINER_NAME_THUMBNAILS = "processedvideos"
+CONTAINER_NAME_THUMBNAILS = "procesedvideos"
 
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
