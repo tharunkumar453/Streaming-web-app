@@ -6,9 +6,7 @@ from dotenv import load_dotenv
 
 import os
 load_dotenv()  # Load environment variables from .env file
-
-
-
+CDN_DOMAIN = os.getenv("CDN_DOMAIN")
 
 from SAS_GENERATOR.models import Movies, MovieUrls
 from .serializer import MovieListSerializer,MovieDetailsSerializer ,ReelviewSerializer
@@ -34,7 +32,7 @@ class MovieDetailsView(RetrieveAPIView):
         print(serializer.data["files"][0]["url_for_preview"])
         response = Response({
             "movie": serializer.data,
-            "blob_url": f"{cdn_domain}/{serializer.data['files'][0]['blob_url']}"
+            "blob_url": f"{CDN_DOMAIN}/{serializer.data['files'][0]['blob_url']}"
         })
         return response
       
