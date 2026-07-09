@@ -37,6 +37,13 @@ def process_Reel(self, blob_url, movie_id):
         return
     else:
         logging.info(f"file path created for video_id: {movie_id}")
+    try:
+        download_video(blob_url, local_folder)
+        logging.info(f"download_video succeeded for video_id: {movie_id}")
+    except Exception as e:
+        logging.error(f"Error downloading video for video_id: {movie_id} --->Error: {str(e)}")
+
+    
     
     chunk_gen_out = Chunk_generator(file_path, output_folder)
 
