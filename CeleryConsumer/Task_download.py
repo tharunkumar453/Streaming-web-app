@@ -15,7 +15,7 @@ from azpype.commands.copy import Copy
 
 def download_video(blob_url,file_path):
 
-    logging.info(f"Starting video processing for video_id: {video_id}===>with blob_url: {blob_url}")
+    logging.info(f"Starting video ddownload")
 
     try:
 
@@ -28,6 +28,6 @@ def download_video(blob_url,file_path):
 
         return file_path
     except Exception as e:
-        logging.error(f"Error processing video_id: {video_id} --->with blob_url: {blob_url} ===>Error: {str(e)}")
+        logging.error(f"Error processing video ===>Error: {str(e)}")
         return
         
