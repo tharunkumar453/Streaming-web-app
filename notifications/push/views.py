@@ -36,9 +36,10 @@ class RegisterDeviceAPIView(CreateAPIView):
         logging.info("device added")
 
 class Following_Follower_view(APIView):
+    permission_classes = [IsAuthenticated]
     def post(self,request,channel_id):
         try:
-            Following_Follower.objects.create(
+            Following_Follower.objects.update_or_create(
                 following_id=channel_id,
                 follower_id=request.user.id,
                 follower_email=request.user.email
@@ -53,7 +54,8 @@ class Following_Follower_view(APIView):
 
 
 class Follwed_by_me(ListAPIView):
-    def get(self,request):
-        permission_classes=[IsAuthenticated]
-        serializer_class=FollowingSerializer
-        queryset=Following_Follower.objects.get(follower_id=request.user.id).order_by("-uploaded_at")
+    permission_classes = [IsAuthenticated]
+    serializer_class = FollowingSerializer
+
+    def get_queryset(self):
+        return Following_Follower.objects.filter(follower_id=self.request.user.id).order_by("-uploaded_at")
