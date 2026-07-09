@@ -42,6 +42,7 @@ class MovieDetailsSerializer(serializers.ModelSerializer):
             "cast",
             "zoner",
             "uploaded_at",
+            "uploader_id",
             "files"
         ]
 
