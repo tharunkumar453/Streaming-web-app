@@ -39,6 +39,8 @@ class Following_Follower_view(APIView):
     permission_classes = [IsAuthenticated]
     def post(self,request,channel_id):
         try:
+            print(request.user.id)
+            print(request.user.email)
             Following_Follower.objects.update_or_create(
                 following_id=channel_id,
                 follower_id=request.user.id,
