@@ -54,6 +54,7 @@ class ReelviewSerializer(serializers.ModelSerializer):
         fields=[
             "Movie_id",
             "title",
+            "uploader_id",
             "uploaded_at",
             "files"
         ]
