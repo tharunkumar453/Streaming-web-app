@@ -1,4 +1,5 @@
 from rest_framework.generics import CreateAPIView,ListAPIView
+from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .models import Following_Follower
@@ -32,16 +33,16 @@ class RegisterDeviceAPIView(CreateAPIView):
         )
         logging.info("device added")
 
-class Following_Follower_view(CreateAPIView):
+class Following_Follower_view(APIView):
     def post(self,request,channel_id):
         try:
-            Following_Follower.Create(
+            Following_Follower.objects.create(
                 following_id=channel_id,
                 follower_id=request.user.id,
                 follower_email=request.user.email
 
             )
-            return Response("you Followinif this channel")
+            return Response("you are now following this channel")
         except Exception as e :
             logging.error(f"{e}")
 
