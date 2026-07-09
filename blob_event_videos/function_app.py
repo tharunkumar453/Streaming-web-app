@@ -2,7 +2,7 @@ import logging
 import json
 import azure.functions as func
 from celery import Celery
-REDIS_URL="redis://:0RMNBgSGiCe5HVRzIHmv9eP52W-KqVdjrAZCABZ8ruA=@azredis.malaysiawest.redis.azure.net:10000/0"
+REDIS_URL="redis://:FScf3lfLqjX0BFdKbMTGYbmilaRw63khSAZCAKBpOZw=@azredis.malaysiawest.redis.azure.net:10000/0"
 
 celery_client = Celery("producer",broker=REDIS_URL)
 

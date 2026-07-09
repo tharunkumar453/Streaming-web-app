@@ -134,7 +134,7 @@ __queuestorage__
 __azurite_db*__.json
 .python_packages
 k8s-files
-.vscode
+
 blob_evens_reels
 blob_events_videos
 proxy
@@ -145,4 +145,7 @@ deocker-compose.yml
 firebase-credintials.json
 notifications/notifications/firebase-credintials.json
 k8s-files
-.vscode
+payments-frontend/
+notifications-frontend/
+myproject-server-frontend/
+auth-frontend/
