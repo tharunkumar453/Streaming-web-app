@@ -12,9 +12,12 @@ from django.core.mail import EmailMultiAlternatives, get_connection
 from django.core.mail import send_mail
 
 
+
 def send_push_notification(device, fcm_token,video_title,video_id):
+    logging.info(f"Preparing to send push notification to device {device.id} with FCM token: {fcm_token}")
     try:
         url=f"https://yourdomain.com/watch/{video_id}/"
+        logging.info(f"Notification URL: {url}")
         message = messaging.Message(
             token=fcm_token,
             notification=messaging.Notification(
@@ -29,8 +32,9 @@ def send_push_notification(device, fcm_token,video_title,video_id):
 
             
         )
+        logging.info(f"Sending message: {message}")
         response=messaging.send(message)
-        print(f"Successfully sent message: {response}")
+        logging.info(f"Successfully sent message: {response}")
         
         logging.info(f"Notification sent to device {device.id} for video_id: {video_id}")
 
@@ -41,6 +45,7 @@ def send_push_notification(device, fcm_token,video_title,video_id):
             device.active = False
             device.save()
             logging.info("Device deactivated due to invalid FCM token.")
+        logging.error(f"Error sending notification to device: {str(e)}")
 
 
 
@@ -56,10 +61,11 @@ def push_notification_task(user,video_title,video_id):
             active=True
         )
         logging.info(f"Found {devices.count()} active devices for user_id: {user}")
-        print(devices)
+        logging.info(f"Active devices: {devices}")
         for device in devices:
             logging.info(f"Sending notification to device {device.id} with FCM token: {device.fcm_token}")  
             send_push_notification(device,device.fcm_token,video_title,video_id)
+            logging.info(f"Notification sent to device {device.id} for video_id: {video_id}")
 
         logging.info("Notification sent successfully.")
     except Exception as e:
