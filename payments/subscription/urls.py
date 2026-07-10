@@ -16,7 +16,7 @@ from .views import planList,CreateOrder,VerifyPayment,razorpay_webhook
 
 urlpatterns = [
     path("plans/", planList.as_view(), name="plan-list"),
-    path("create-order/<str:plan_id>/", CreateOrder.as_view(), name="create-order"),
+    path("create-order/<str:plan_id>", CreateOrder.as_view(), name="create-order"),
     path("verify-payment/", VerifyPayment.as_view(), name="verify-payment"),
     path("webhook/",razorpay_webhook, name="webhook"),
 ]

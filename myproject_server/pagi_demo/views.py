@@ -8,7 +8,7 @@ import os
 load_dotenv()  # Load environment variables from .env file
 CDN_DOMAIN = os.getenv("CDN_DOMAIN")
 
-from SAS_GENERATOR.models import Movies, MovieUrls
+from SAS_GENERATOR.models import Movies, MovieUrls,PREMIUM_USER
 from .serializer import MovieListSerializer,MovieDetailsSerializer ,ReelviewSerializer
 from .pagination import MovieCursorPagination
 from rest_framework.response import Response
@@ -28,13 +28,18 @@ class MovieDetailsView(RetrieveAPIView):
         if movie is None:
             return Response({"error": "Movie not found"},status=404)
         serializer = MovieDetailsSerializer(movie)
+
         print(serializer.data)
         print(serializer.data["files"][0]["url_for_preview"])
-        response = Response({
-            "movie": serializer.data,
-            "blob_url": f"{CDN_DOMAIN}/{serializer.data['files'][0]['blob_url']}"
-        })
-        return response
+        if(serializer.data["files"][0]["is_have_plan"] and not PREMIUM_USER.objects.filter(user_id=request.user.id).exists()):
+            return Response({"error": "You need a premium subscription to access this content."}, status=403)
+
+        else:
+            response = Response({
+                "movie": serializer.data,
+                "blob_url": f"{CDN_DOMAIN}/{serializer.data['files'][0]['blob_url']}"
+            })
+            return response
       
     
 class ReelsListView(ListAPIView):

@@ -22,6 +22,7 @@ class VideoFileSerializer(serializers.ModelSerializer):
         fields = [
             "Movie_url_id",
             "url_for_preview",
+            "is_have_plan",
             "blob_url"  
         ]
 

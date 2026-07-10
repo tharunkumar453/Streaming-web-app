@@ -26,7 +26,7 @@ from django.core.mail import send_mail
 def send_push_notification(device, fcm_token,video_title,video_id):
     logging.info(f"Preparing to send push notification to device {device.id} with FCM token: {fcm_token}")
     try:
-        url=f"https://yourdomain.com/watch/{video_id}/"
+        url=f"localhost:3000/pagi_demo/movies/{video_id}"
         logging.info(f"Notification URL: {url}")
         message = messaging.Message(
             token=fcm_token,
