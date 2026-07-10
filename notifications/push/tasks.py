@@ -29,7 +29,8 @@ def send_push_notification(device, fcm_token,video_title,video_id):
 
             
         )
-        messaging.send(message)
+        response=messaging.send(message)
+        print(f"Successfully sent message: {response}")
         
         logging.info(f"Notification sent to device {device.id} for video_id: {video_id}")
 
