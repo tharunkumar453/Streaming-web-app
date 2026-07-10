@@ -1,7 +1,7 @@
 from celery import shared_task
 from .models import DeviceNotification,Following_Follower
 import logging
-import notifications.firebase
+import notifications.firebase_config
 
 from firebase_admin import messaging
 
