@@ -11,21 +11,6 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives, get_connection
 from django.core.mail import send_mail
 
-@shared_task(name="send_push_notification_task", queue="push_notification_queue")
-def send_push_notification_task(user_id,video_title,video_id):
-    try:
-        devices = DeviceNotification.objects.filter(
-            user_id=user_id,
-            active=True
-        )
-        for device in devices:
-            send_push_notification(device,device.fcm_token,video_title,video_id)
-        logging.info("Notification sent successfully.")
-    except Exception as e:
-        logging.error("Error occurred while sending notification: %s", str(e))
-    
-
-
 
 def send_push_notification(device, fcm_token,video_title,video_id):
     try:
@@ -55,6 +40,31 @@ def send_push_notification(device, fcm_token,video_title,video_id):
             device.active = False
             device.save()
             logging.info("Device deactivated due to invalid FCM token.")
+
+
+
+
+
+@shared_task(name="send_push_notification_task", queue="push_notification_queue")
+def push_notification_task(user,video_title,video_id):
+    logging.info(f"Sending push notification for user_id: {user}, video_title: {video_title}, video_id: {video_id}")
+    try:
+        logging.info(f"Fetching active devices for user_id: {user}")
+        devices = DeviceNotification.objects.filter(
+            user_id=user,
+            active=True
+        )
+        logging.info(f"Found {devices.count()} active devices for user_id: {user}")
+        print(devices)
+        for device in devices:
+            logging.info(f"Sending notification to device {device.id} with FCM token: {device.fcm_token}")  
+            send_push_notification(device,device.fcm_token,video_title,video_id)
+
+        logging.info("Notification sent successfully.")
+    except Exception as e:
+        logging.error("Error occurred while sending notification: %s", str(e))
+    
+
 
 
 
