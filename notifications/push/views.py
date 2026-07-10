@@ -34,6 +34,7 @@ class RegisterDeviceAPIView(CreateAPIView):
             }
         )
         logging.info("device added")
+        return Response({"message":"device registered successfully"},status=201)
 
 class Following_Follower_view(APIView):
     permission_classes = [IsAuthenticated]
