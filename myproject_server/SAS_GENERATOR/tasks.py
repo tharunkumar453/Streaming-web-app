@@ -27,6 +27,14 @@ def Update_Movie_URL(movie_id, url_,url_for_preview=None):
                 )
             except  Exception as e:
                 logging.error(f"Error sending  to email_notify_queue for video_id: {movie_id} --->Error: {str(e)}")
+            try:
+                app.send_task(
+                name="send_push_notification_task",
+                args=[objMovie.uploader_id, objMovie.title, objMovie.Movie_id],
+                queue="push_notification_queue"
+                )
+            except  Exception as e:
+                logging.error(f"Error sending  to push_notification_queue for video_id: {movie_id} --->Error: {str(e)}")
         else:
             logging.error(f"Movie with ID {movie_id} does not exist.")
             return  
