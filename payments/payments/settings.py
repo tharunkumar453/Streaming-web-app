@@ -43,6 +43,16 @@ INSTALLED_APPS = [
     "corsheaders",
     "subscription",
 ]
+CORS_ALLOW_ALL_ORIGINS = False
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://esparx2k26.me",
+]
+CORS_ALLOW_CREDENTIALS = True
+
+
 RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID")
 RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET")
 CORS_ALLOW_ALL_ORIGINS = True
