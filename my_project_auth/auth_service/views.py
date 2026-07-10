@@ -116,7 +116,9 @@ class LoginView(APIView):
 
             # Generate JWT Tokens
             refresh = RefreshToken.for_user(user)
+            refresh["email"] = email   
             access = refresh.access_token
+            
 
             # Create response
             response = Response({
