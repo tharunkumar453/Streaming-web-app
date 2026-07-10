@@ -1,6 +1,8 @@
 from celery import shared_task
 from .models import DeviceNotification,Following_Follower
 import logging
+import notifications.firebase
+
 from firebase_admin import messaging
 
 from django.template.loader import render_to_string
