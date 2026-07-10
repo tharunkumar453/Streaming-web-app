@@ -20,7 +20,7 @@ class RegisterDeviceAPIView(CreateAPIView):
 
         fcm_token = request.data.get( "registration_id")
 
-        platform = request.data.get("type","web")
+        platform = request.data.get("type")
 
         if not fcm_token:
             return Response({"error":"fcm_token required"},status=400)
