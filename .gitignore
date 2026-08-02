@@ -149,3 +149,5 @@ payments-frontend/
 notifications-frontend/
 myproject-server-frontend/
 auth-frontend/
+/workspaces/Streaming-web-app/auth-frontend
+/workspaces/Streaming-web-app/iam_policy.json

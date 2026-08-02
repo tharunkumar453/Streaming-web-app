@@ -1,7 +1,7 @@
   name: authenication-workflow
   on:
     push:
-      branches: [ "dev" ]
+      branches: [ "main" ]
       paths:
         - 'my_project_auth/**'
         - '.github/workflows/Auth.yml'

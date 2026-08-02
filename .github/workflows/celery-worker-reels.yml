@@ -1,7 +1,7 @@
 name: Celery Worker CI
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "main" ]
     paths:
       - 'CeleryConsumerforreel/**'
       - '.github/workflows/celery-worker-reels.yml'

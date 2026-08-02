@@ -2,7 +2,7 @@ name: Celery Worker Video CI
 on:
 
   push:
-    branches: [ "dev" ]
+    branches: [ "main" ]
     paths:
       - 'CeleryConsumer/**'
       - '.github/workflows/celery-worker-video.yml'

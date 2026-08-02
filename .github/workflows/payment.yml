@@ -2,7 +2,7 @@ name: payments CI
 on:
   push:
     branches:
-      - dev
+      - main
     paths:
       - 'payments/**'
       - '.github/workflows/payments.yml'    

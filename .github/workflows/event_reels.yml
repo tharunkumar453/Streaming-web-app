@@ -1,7 +1,7 @@
 name : Reels az Function CI
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "main" ]
     paths:
       - 'blob_event_reels/**'
       - '.github/workflows/event_reels.yml'
