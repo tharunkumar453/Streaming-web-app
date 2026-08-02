@@ -1,0 +1,21 @@
+[project]
+name = "auth"
+version = "0.1.0"
+requires-python = ">=3.12"
+
+dependencies = [
+    "django",
+    "celery[redis]",
+    "djangorestframework",
+    "python-dotenv",
+    "django-cors-headers",
+    "djangorestframework-simplejwt",
+    "boto3",
+    "cryptography",
+    "azure-storage-blob",
+    "mysqlclient"
+
+
+
+
+]

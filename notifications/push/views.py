@@ -1,0 +1,64 @@
+from rest_framework.generics import CreateAPIView,ListAPIView
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from .models import Following_Follower
+from .serializers import FollowingSerializer
+from rest_framework import status
+import logging
+
+
+from .models import DeviceNotification
+
+class RegisterDeviceAPIView(CreateAPIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+
+        user_id = request.user.id
+
+        fcm_token = request.data.get( "registration_id")
+
+        platform = request.data.get("type")
+
+        if not fcm_token:
+            return Response({"error":"fcm_token required"},status=400)
+
+        DeviceNotification.objects.update_or_create(
+            fcm_token=fcm_token,
+            defaults={
+                "user_id": user_id,
+                "platform": platform,
+                "active": True
+            }
+        )
+        logging.info("device added")
+        return Response({"message":"device registered successfully"},status=201)
+
+class Following_Follower_view(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self,request,channel_id):
+        try:
+            print(request.user.id)
+            print(request.user.email)
+            Following_Follower.objects.update_or_create(
+                following_id=channel_id,
+                follower_id=request.user.id,
+                follower_email=request.user.email
+
+            )
+            return Response({"message":"followed successfully"},status=201)
+        except Exception as e :
+            logging.error(f"{e}")
+            return Response({"error":"failed to follow channel"},status=500)
+
+    
+
+
+class Follwed_by_me(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = FollowingSerializer
+
+    def get_queryset(self):
+        return Following_Follower.objects.filter(follower_id=self.request.user.id).order_by("-uploaded_at")
